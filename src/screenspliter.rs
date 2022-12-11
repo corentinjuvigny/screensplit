@@ -58,7 +58,7 @@ struct Monitor {
 }
 
 impl Monitor {
-   fn new(name: &str, resolution: &(u32,u32)) -> Monitor
+   fn new(name: &str, resolution: &(u32,u32)) -> Self
    {
       Monitor { name: String::from(name)
               , resolution: resolution.clone() }

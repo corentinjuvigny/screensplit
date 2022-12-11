@@ -38,7 +38,7 @@ fn wallpaper_default_value() -> String
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
 pub struct Args {
-   /// Path to the wallpaper (Warning : it has be an absolute path)
+   /// Path to the wallpaper (Warning : it has to be an absolute path)
    #[arg(short, long, default_value_t = wallpaper_default_value())]
    pub wallpaper_path: String,
 
