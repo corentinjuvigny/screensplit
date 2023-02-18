@@ -22,16 +22,14 @@ use clap::{Parser, arg, command};
 use dirs::home_dir;
 use crate::screenspliter::Position;
 
-fn get_home_directory() -> String
-{
-   String::from(home_dir().unwrap().as_path().to_str().unwrap())
-}
-
 fn wallpaper_default_value() -> String
 {
-   let mut home = get_home_directory();
-   home.push_str("/.local/wallpaper/renoir_sunset_at_sea.png");
-   home
+   home_dir().map(|d| match d.to_str() {
+               Some(s) => String::from(s),
+               None => String::default()
+             })
+             .map(|s| s + "/.local/screensplit/wallpaper/renoir_sunset_at_sea.png")
+             .unwrap_or_default()
 }
 
 /// Screen spliter - get the first two connected screens and set the second at the given position

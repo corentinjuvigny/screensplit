@@ -69,7 +69,7 @@ impl Monitor {
       self.name.as_ref()
    }
 
-   fn resolution_str(&self) -> String
+   fn to_boxed_string(&self) -> String
    {
       format!("{}x{}",self.resolution.0,self.resolution.1)
    }
@@ -96,9 +96,9 @@ pub fn split_screen(path: &str, position: &Position) -> Result<(),Box<dyn std::e
    let available_monitors = get_available_monitors()?;
    if available_monitors.len() > 1 {
       Command::new("xrandr").args(["--output",available_monitors[0].name()])
-                            .args(["--mode",available_monitors[0].resolution_str().as_str()])
+                            .args(["--mode",available_monitors[0].to_boxed_string().as_str()])
                             .args(["--output",available_monitors[1].name()])
-                            .args(["--mode",available_monitors[1].resolution_str().as_str()])
+                            .args(["--mode",available_monitors[1].to_boxed_string().as_str()])
                             .args([position.as_xrandr_arg(),available_monitors[0].name()])
                             .output()?;
       Command::new("feh").arg("--bg-scale").arg(path).output()?;
