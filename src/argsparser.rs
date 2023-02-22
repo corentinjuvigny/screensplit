@@ -22,13 +22,15 @@ use clap::{Parser, arg, command};
 use dirs::home_dir;
 use crate::screenspliter::Position;
 
+const DEFAULT_WALLPAPER: &str = "/.local/screensplit/wallpaper/renoir_sunset_at_sea.png";
+
 fn wallpaper_default_value() -> String
 {
    home_dir().map(|d| match d.to_str() {
                Some(s) => String::from(s),
                None => String::default()
              })
-             .map(|s| s + "/.local/screensplit/wallpaper/renoir_sunset_at_sea.png")
+             .map(|s| s + DEFAULT_WALLPAPER)
              .unwrap_or_default()
 }
 
@@ -42,5 +44,9 @@ pub struct Args {
 
    /// Relative position of the second screen
    #[arg(short, long, value_enum, default_value_t = Position::default())]
-   pub position: Position
+   pub position: Position,
+
+   /// Lists all available monitors
+   #[arg(short, long, action)]
+   pub list_monitors: bool
 }

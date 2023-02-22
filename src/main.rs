@@ -23,10 +23,14 @@ mod argsparser;
 
 use clap::Parser;
 use argsparser::Args;
-use screenspliter::split_screen;
+use screenspliter::{split_screen, list_monitors};
 
 fn main() -> Result<(),Box<dyn std::error::Error>>
 {
     let args = Args::parse();
-    split_screen(args.wallpaper_path.as_str(),&args.position)
+    if args.list_monitors {
+        list_monitors()
+    } else {
+        split_screen(args.wallpaper_path.as_str(),&args.position)
+    }
 }
